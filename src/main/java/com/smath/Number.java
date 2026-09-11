@@ -4,13 +4,83 @@ public abstract class Number {
 
     public abstract String toString();
 
-    public abstract Number add(Number other);
+    protected abstract int rank();
+
+    protected abstract Number promoteOnce();
+
+    protected final Number promoteTo(int rank) {
+        Number current = this;
+        while (current.rank() < rank) current = promoteOnce();
+        return current;
+    }
+
+    public final Number add(Number other) {
+        int highestRank = Math.max(rank(), other.rank());
+        Number x = promoteTo(highestRank);
+        Number y = other.promoteTo(highestRank);
+        return x.addSame(y);
+    }
+
+    public final Number add(int other) {
+        return add(new Integer(other));
+    }
+
+    public final Number add(long other) {
+        return add(new Integer(other));
+    }
+
+    protected abstract Number addSame(Number other);
+
+    public Number subt(Number other) {
+        int highestRank = Math.max(rank(), other.rank());
+        Number x = promoteTo(highestRank);
+        Number y = other.promoteTo(highestRank);
+        return x.subtSame(y);
+    }
+
+    public final Number subt(int other) {
+        return subt(new Integer(other));
+    }
+
+    public final Number subt(long other) {
+        return subt(new Integer(other));
+    }
+
+    public Number mult(Number other) {
+        int highestRank = Math.max(rank(), other.rank());
+        Number x = promoteTo(highestRank);
+        Number y = other.promoteTo(highestRank);
+        return x.multSame(y);
+    }
+
+    public final Number mult(int other) {
+        return mult(new Integer(other));
+    }
+
+    public final Number mult(long other) {
+        return mult(new Integer(other));
+    }
+
+    public Number div(Number other) {
+        int highestRank = Math.max(rank(), other.rank());
+        Number x = promoteTo(highestRank);
+        Number y = other.promoteTo(highestRank);
+        return x.divSame(y);
+    }
+
+    public final Number div(int other) {
+        return div(new Integer(other));
+    }
+
+    public final Number div(long other) {
+        return div(new Integer(other));
+    }
 
     public abstract Number negate();
 
-    public abstract Number subtract(Number other);
+    protected abstract Number subtSame(Number other);
 
-    public abstract Number mult(Number other);
+    protected abstract Number divSame(Number other);
 
-    public abstract Number div(Number other);
+    protected abstract Number multSame(Number other);
 }

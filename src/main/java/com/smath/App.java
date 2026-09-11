@@ -9,6 +9,8 @@ import java.io.IO;
 public class App {
 
     public static void main(String[] args) {
-        IO.println("Hello World");
+        IO.println(
+            new Integer("1000000000000000000000000000000").subt(new Integer(10000000000000L).mult(100000070000000000L))
+        );
     }
 }
