@@ -5,6 +5,8 @@ import java.math.BigInteger;
 
 public abstract class Number {
 
+    protected record ApproxResult(BigDecimal value, boolean exact) {}
+
     public abstract String toString();
 
     protected abstract int rank();
@@ -12,6 +14,8 @@ public abstract class Number {
     protected abstract Number promoteOnce();
 
     public abstract Number inverse();
+
+    public abstract ApproxResult approxTo(int decimalPlaces);
 
     public static final Number of(int value) {
         return new Integer(value);

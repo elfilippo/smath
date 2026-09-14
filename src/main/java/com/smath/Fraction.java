@@ -2,33 +2,34 @@ package com.smath;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 
 public class Fraction extends Number {
 
     public final BigInteger numer;
     public final BigInteger denom;
 
-    public Fraction(BigInteger numerator, BigInteger denominator) {
+    protected Fraction(BigInteger numerator, BigInteger denominator) {
         BigInteger divisor = numerator.gcd(denominator);
         numer = numerator.divide(divisor);
         denom = denominator.divide(divisor);
     }
 
-    public Fraction(Integer numerator, Integer denominator) {
+    protected Fraction(Integer numerator, Integer denominator) {
         BigInteger divisor = numerator.val.gcd(denominator.val);
         numer = numerator.val.divide(divisor);
         denom = denominator.val.divide(divisor);
     }
 
-    public Fraction(double value) {
+    protected Fraction(double value) {
         this(new BigDecimal(value));
     }
 
-    public Fraction(float value) {
+    protected Fraction(float value) {
         this((double) value);
     }
 
-    public Fraction(BigDecimal value) {
+    protected Fraction(BigDecimal value) {
         BigInteger multiplier = BigInteger.TEN.pow(value.scale());
         BigInteger rawNumer = value.multiply(new BigDecimal(multiplier)).toBigInteger();
         BigInteger divisor = multiplier.gcd(rawNumer);
@@ -36,9 +37,24 @@ public class Fraction extends Number {
         denom = multiplier.divide(divisor);
     }
 
-    public Fraction(Integer value) {
+    protected Fraction(Integer value) {
         numer = value.val;
         denom = BigInteger.ONE;
+    }
+
+    //TODO: add repeating digit detection
+    @Override
+    public ApproxResult approxTo(int decimalPlaces) {
+        if (decimalPlaces < 1) throw new IllegalArgumentException("precision lower than 1 not allowed");
+        BigDecimal result;
+        try {
+            result = new BigDecimal(numer).divide(new BigDecimal(denom));
+            return new ApproxResult(result, true);
+        } catch (ArithmeticException e) {
+            var mc = new MathContext(decimalPlaces);
+            result = new BigDecimal(numer).divide(new BigDecimal(denom), mc);
+            return new ApproxResult(result, false);
+        }
     }
 
     @Override

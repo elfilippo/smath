@@ -1,10 +1,32 @@
 package com.smath;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class Integer extends Number {
 
     public final BigInteger val;
+
+    protected Integer(int value) {
+        val = BigInteger.valueOf(value);
+    }
+
+    protected Integer(long value) {
+        val = BigInteger.valueOf(value);
+    }
+
+    protected Integer(String value) {
+        val = new BigInteger(value);
+    }
+
+    protected Integer(BigInteger value) {
+        val = value;
+    }
+
+    @Override
+    public ApproxResult approxTo(int decimalPlaces) {
+        return new ApproxResult(new BigDecimal(val), true);
+    }
 
     @Override
     protected int rank() {
@@ -19,22 +41,6 @@ public class Integer extends Number {
     @Override
     public Number inverse() {
         return new Fraction(BigInteger.ONE, val);
-    }
-
-    public Integer(int value) {
-        val = BigInteger.valueOf(value);
-    }
-
-    public Integer(long value) {
-        val = BigInteger.valueOf(value);
-    }
-
-    public Integer(String value) {
-        val = new BigInteger(value);
-    }
-
-    public Integer(BigInteger value) {
-        val = value;
     }
 
     @Override

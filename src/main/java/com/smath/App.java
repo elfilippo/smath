@@ -9,6 +9,6 @@ import java.io.IO;
 public class App {
 
     public static void main(String[] args) {
-        IO.println(Number.of(1.5).div(Number.of("0.3")));
+        IO.println(Number.of(5).div(Number.of("42")).approxTo(10000));
     }
 }
