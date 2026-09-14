@@ -53,7 +53,7 @@ public abstract class Number {
         int highestRank = Math.max(rank(), other.rank());
         Number x = promoteTo(highestRank);
         Number y = other.promoteTo(highestRank);
-        return x.addSame(y);
+        return x.addSame(y).tryDemote();
     }
 
     public final Number add(int other) {
@@ -70,7 +70,7 @@ public abstract class Number {
         int highestRank = Math.max(rank(), other.rank());
         Number x = promoteTo(highestRank);
         Number y = other.promoteTo(highestRank);
-        return x.subtSame(y);
+        return x.subtSame(y).tryDemote();
     }
 
     public final Number subt(int other) {
@@ -85,7 +85,7 @@ public abstract class Number {
         int highestRank = Math.max(rank(), other.rank());
         Number x = promoteTo(highestRank);
         Number y = other.promoteTo(highestRank);
-        return x.multSame(y);
+        return x.multSame(y).tryDemote();
     }
 
     public final Number mult(int other) {
@@ -100,7 +100,7 @@ public abstract class Number {
         int highestRank = Math.max(rank(), other.rank());
         Number x = promoteTo(highestRank);
         Number y = other.promoteTo(highestRank);
-        return x.divSame(y);
+        return x.divSame(y).tryDemote();
     }
 
     public final Number div(int other) {
@@ -110,6 +110,8 @@ public abstract class Number {
     public final Number div(long other) {
         return div(new Integer(other));
     }
+
+    protected abstract Number tryDemote();
 
     public abstract Number negate();
 

@@ -61,7 +61,12 @@ public class Integer extends Number {
     protected Number divSame(Number other) {
         Integer denominator = (Integer) other;
         if (val.mod(denominator.val).equals(BigInteger.ZERO)) return new Integer(val.divide(((Integer) other).val));
-        else throw new ArithmeticException("Fractions are not yet implemented");
+        else return promoteOnce().div(other);
+    }
+
+    @Override
+    protected Number tryDemote() {
+        return this;
     }
 
     @Override

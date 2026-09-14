@@ -9,8 +9,6 @@ import java.io.IO;
 public class App {
 
     public static void main(String[] args) {
-        IO.println(
-            new Integer("1000000000000000000000000000000").subt(new Integer(10000000000000L).mult(100000070000000000L))
-        );
+        IO.println(Number.of(1.5).div(Number.of("0.3")));
     }
 }

@@ -47,6 +47,12 @@ public class Fraction extends Number {
     }
 
     @Override
+    protected Number tryDemote() {
+        if (denom.equals(BigInteger.ONE)) return new Integer(numer);
+        else return this;
+    }
+
+    @Override
     public Number negate() {
         return new Fraction(numer.negate(), denom);
     }
