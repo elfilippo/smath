@@ -1,5 +1,8 @@
 package com.smath;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 public abstract class Number {
 
     public abstract String toString();
@@ -7,6 +10,38 @@ public abstract class Number {
     protected abstract int rank();
 
     protected abstract Number promoteOnce();
+
+    public abstract Number inverse();
+
+    public static final Number of(int value) {
+        return new Integer(value);
+    }
+
+    public static final Number of(long value) {
+        return new Integer(value);
+    }
+
+    public static final Number of(double value) {
+        return of(new BigDecimal(value));
+    }
+
+    public static final Number of(float value) {
+        return of((double) value);
+    }
+
+    public static final Number of(BigInteger value) {
+        return new Integer(value);
+    }
+
+    public static final Number of(BigDecimal value) {
+        Fraction fraction = new Fraction(value);
+        if (fraction.denom.equals(BigInteger.ONE)) return new Integer(fraction.numer);
+        else return fraction;
+    }
+
+    public static final Number of(String value) {
+        return of(new BigDecimal(value));
+    }
 
     protected final Number promoteTo(int rank) {
         Number current = this;

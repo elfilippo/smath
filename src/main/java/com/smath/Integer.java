@@ -13,7 +13,12 @@ public class Integer extends Number {
 
     @Override
     protected Number promoteOnce() {
-        return null;
+        return new Fraction(this);
+    }
+
+    @Override
+    public Number inverse() {
+        return new Fraction(BigInteger.ONE, val);
     }
 
     public Integer(int value) {
