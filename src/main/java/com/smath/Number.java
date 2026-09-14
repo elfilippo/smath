@@ -5,6 +5,8 @@ import java.math.BigInteger;
 
 public abstract class Number {
 
+    public static final int MAX_PRECISION = 500_000_000;
+
     protected record ApproxResult(BigDecimal value, boolean exact) {}
 
     public abstract String toString();

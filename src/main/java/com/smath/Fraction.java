@@ -45,7 +45,9 @@ public class Fraction extends Number {
     //TODO: add repeating digit detection
     @Override
     public ApproxResult approxTo(int decimalPlaces) {
-        if (decimalPlaces < 1) throw new IllegalArgumentException("precision lower than 1 not allowed");
+        if (decimalPlaces < 1 || decimalPlaces > Number.MAX_PRECISION) throw new IllegalArgumentException(
+            "precision has to be between 1 and 500 million"
+        );
         BigDecimal result;
         try {
             result = new BigDecimal(numer).divide(new BigDecimal(denom));
